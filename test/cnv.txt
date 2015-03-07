@@ -1,0 +1,6 @@
+capture	gene_symbol	type	avg_coverage	coverage_std_dev	bb_ratio_std_dev	median_abs_residual
+TruSightOne	SERPINB11	heterozygous	135.7427	69.491280080711	1.01810478991367	0.0196
+TruSightOne	KIR2DL3	heterozygous	58.6333	9.5885573187221	1.16371388213792	0.0335
+TruSightOne	EXO5	heterozygous	78.7157	36.2784991664175	1.01295911334297	0.0416
+TruSightOne	FANCC	heterozygous	124.6886	58.1561193252268	1.03790822294125	0.0659
+TruSightOne	DMBT1	homozygous	110.4281	80.8865200173549	1.59197975468044	0.1789

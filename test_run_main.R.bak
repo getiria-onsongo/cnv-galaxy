@@ -1,0 +1,65 @@
+#!/usr/bin/env Rscript
+
+suppressPackageStartupMessages(library("calibrate"));
+suppressPackageStartupMessages(library("optparse"));
+suppressPackageStartupMessages(library("plotrix"));
+suppressPackageStartupMessages(library("RMySQL"));
+suppressPackageStartupMessages(library("zoo"));
+# suppressPackageStartupMessages(library("CopyNumDeletion"));
+source("/Users/onson001/Desktop/NGS/cnv/cnv-beta/src/CopyNumDeletion.R");
+
+option_list <- list(
+make_option("--c_name", help="Control sample name"),
+make_option("--s_name",  help="Sample name"),
+make_option("--out_dir", help="Path to location where data will be saved"),
+make_option("--db_u", help="MySQL database username"),
+make_option("--db_p", help="MySQL database password"),
+make_option("--db_d", help="MySQL database to use"),
+make_option("--db_h", help="MySQL host to use")
+)
+
+# get command line options, if help option encountered print help and exit,
+# otherwise if options not found on command line then set defaults,
+opt <- parse_args(OptionParser(option_list=option_list));
+
+m <- dbDriver("MySQL");
+con <-dbConnect(m,username=opt$db_u,password=opt$db_p,dbname=opt$db_d,host=opt$db_h);
+
+if (!is.null(opt$out_dir)) {
+    # Create the directory
+    dir.create(opt$out_dir,FALSE)
+}
+
+
+setwd(opt$out_dir);
+
+# Strip whitespace
+pdffile <- gsub("[ ]+", "", paste(opt$out_dir,"/CoveragePlots.pdf"))
+cnv <- gsub("[ ]+", "", paste(opt$out_dir,"/cnv.tx"))
+rawData <- gsub("[ ]+", "", paste(opt$out_dir,"/raw_data.txt"))
+htmlfile <- gsub("[ ]+", "", paste("OutputFiles.html"))
+
+
+# ----------------------------------------------------- OUTPUT RESULTS
+# RETRIEVE CNVs AND WRITE THEM TO A TEXT FILE
+mysql_output_cnv(con, opt$s_name);
+
+# RETRIVE RAW DATA FOR CNVs AND ORDERED GENES JUST INCASE GENETICIST WANTS TO LOOK AT THE DATA
+mysql_get_raw_data(con, opt$s_name,opt$c_name);
+
+# PLOT GENES WITH CNVS TOGETHER WITH ORDERED GENES IF THEY WERE NOT IDENTIFIED AS HAVING CNVs
+width=23;
+single_plot_height=2;
+plot_cnv_and_ordered_genes(con, opt$s_name,opt$c_name,width,single_plot_height);
+
+# Produce the HTML file
+htmlfile_handle <- file(htmlfile)
+html_output = c('<html><body>',
+'<a href="CoveragePlots.pdf"> <br> Coverage Plots</br> </a>',
+'<a href="cnv.txt"> <br> Copy Number Deletions</br> </a>',
+'<a href="raw_data.txt"> <br> Raw Data </br> </a>',
+'</html></body>');
+writeLines(html_output, htmlfile_handle);
+close(htmlfile_handle);
+
+

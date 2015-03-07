@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<tool id="CopyNumberDeletion" name="Copy Number Deletions" version="1.0" hidden="false">
+  <description>Test executing a simple R script and return some produced image</description>
+ 
+  <command interpreter="Rscript">
+      test_run_main.R --s_name $sample_name --c_name $c_sample_name --out_dir $out_dir --db_h $db_h --db_u $db_u --db_p $db_p --db_d $db_d
+  </command>
+ 
+  <inputs>
+    <param name="sample_name" type="text"  value="11-05910" label="Name of Sample" />
+    <param name="c_sample_name" type="text"  value="07-2151" label="Name of Control Sample" />
+    <param name="out_dir" type="text"  value="/Users/onson001/Desktop/NGS/cnv/cnv-beta/out" label="Directory to store files" />
+    <param name="db_h" type="text"  value="localhost" label="MySQL hostname" />
+    <param name="db_u" type="text"  value="onson001" label="MySQL username" />
+    <param name="db_p" type="text"  value="masara15" label="MySQL password" />
+    <param name="db_d" type="text"  value="fairview_2013_09_25" label="MySQL database" />
+  </inputs>
+ 
+  <outputs>
+    <data format="html" name="htmlfile" label="OutputFiles.html" />
+  </outputs>
+ 
+  <help>
+    **What it does**
+ 
+    This tool executes an R script that identifies Copy Number Deletions, and produces HTML output with text files and a
+    clickable image, that leads to a download of the text and PDF files. 
+  </help>
+</tool>

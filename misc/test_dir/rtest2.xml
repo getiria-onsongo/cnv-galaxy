@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<tool id="rtest2" name="R Test 2" version="1.0" hidden="false">
+  <description>Test executing a simple R script and return some produced image</description>
+ 
+  <command interpreter="Rscript">
+    rtest2.r --outdir="$htmlfile.files_path" --htmlfile=$htmlfile
+  </command>
+ 
+  <inputs>
+    <param name="job_name" type="text" label="Supply a name for the outputs to remind you what they contain" value="RTest"/>
+  </inputs>
+ 
+  <outputs>
+    <data format="html" name="htmlfile" label="${job_name}.html" />
+  </outputs>
+ 
+  <help>
+    **What it does**
+ 
+    This tool executes a test R script, and produces HTML output with a
+    clickable image, that leads to a download of the PDF file.
+  </help>
+</tool>
