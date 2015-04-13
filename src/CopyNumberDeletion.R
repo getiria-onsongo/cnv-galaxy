@@ -824,16 +824,18 @@ cnv_normalize <- function (con, norm_input,norm_output){
 }
 
 cnv_normalize_one_ref <- function(ref){
-    panel_cov_str = paste("SELECT A_over_B_ratio FROM  ",norm_input," WHERE ref_exon_contig_id = '",ref,"' AND A_over_B_ratio > 0.5 AND A_over_B_ratio < 2 AND bowtie_bwa_ratio > 0.8 AND bowtie_bwa_ratio < (10/8);",sep="");
-	panel_cov = dbGetQuery(con, panel_cov_str);
-	ratio = as.numeric(panel_cov[,1]);
-	avg_log2 = mean(log2(ratio));
-	
-	data_values_str = paste("SELECT chr,pos,ref_exon_contig_id,A_over_B_ratio,bowtie_bwa_ratio,gene_symbol FROM  ",norm_input," WHERE ref_exon_contig_id = '",ref,"';",sep="");
-	data_values = dbGetQuery(con,data_values_str);
-	data_values[,4] <- 2^(log2(as.numeric(data_values[,4])) - avg_log2);
-	
-	ans <- data.frame(data_values);
+    panel_cov_str = paste("SELECT A_over_B_ratio FROM  ",norm_input," WHERE ref_exon_contig_id = '",ref,
+    "' AND A_over_B_ratio > 0.5 AND A_over_B_ratio < 2 AND bowtie_bwa_ratio > 0.8 AND bowtie_bwa_ratio < (10/8);",sep="");
+    panel_cov = dbGetQuery(con, panel_cov_str);
+    ratio = as.numeric(panel_cov[,1]);
+    avg_log2 = mean(log2(ratio));
+    
+    data_values_str = paste("SELECT chr,pos,ref_exon_contig_id,A_over_B_ratio,bowtie_bwa_ratio,gene_symbol FROM  ",
+    norm_input," WHERE ref_exon_contig_id = '",ref,"';",sep="");
+    data_values = dbGetQuery(con,data_values_str);
+    data_values[,4] <- 2^(log2(as.numeric(data_values[,4])) - avg_log2);
+    
+    ans <- data.frame(data_values);
     dbWriteTable(con, norm_output, ans, append=TRUE,row.names=FALSE);
 }
 
