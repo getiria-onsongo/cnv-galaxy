@@ -29,7 +29,7 @@ R CMD INSTALL zoo_1.7-12.tar.gz
 
 cd /Users/onson001/Desktop/NGS/cnv/cnv-beta
 
-out_dir="/Users/onson001/Desktop/temp"
+
 db_h="localhost"
 db_u="onson001"
 db_p="masara15"
@@ -47,9 +47,13 @@ platform="TruSightOne";
 
 ordered_genes="/Users/onson001/Desktop/NGS/cnv/cnv-beta/galaxy-wrapper/ordered_genes.txt"
 
+cd /Users/onson001/Desktop/temp
 
+script_path=/Users/onson001/Desktop/NGS/cnv/code/cnv-galaxy/myTools
 
-./CopyNumberDeletion.R  --c_name $c_sample_name --c_pileup $c_pileup --c_bwa $c_bwa --c_bowtie $c_bowtie --s_name $sample_name --s_pileup $s_pileup --s_bwa $s_bwa --s_bowtie $s_bowtie --platform $platform --ordered_genes $ordered_genes --db_h $db_h --db_u $db_u --db_p $db_p --db_d $db_d
+Rscript $script_path/runCND.R  --c_name $c_sample_name --c_pileup $c_pileup --c_bwa $c_bwa --c_bowtie $c_bowtie \
+--s_name $sample_name --s_pileup $s_pileup --s_bwa $s_bwa --s_bowtie $s_bowtie --platform $platform \
+--ordered_genes $ordered_genes --db_h $db_h --db_u $db_u --db_p $db_p --db_d $db_d
 
 
 
@@ -82,23 +86,3 @@ R CMD check cnvAnalysis
 R CMD build cnvAnalysis
 
 R CMD INSTALL cnvAnalysis_1.0.tar.gz
-
-# -- MISC
-
-./test_run_main.R --c_name $c_sample_name --s_name $sample_name --out_dir $out_dir --db_h $db_h --db_u $db_u --db_p $db_p --db_d $db_d
-
-./plot.R --c_name $c_sample_name --s_name $sample_name --ordered_genes $ordered_genes --out_dir $out_dir --db_h $db_h --db_u $db_u --db_p $db_p --db_d $db_d
-
-
- rtest2.r --outdir="/Users/onson001/Desktop/NGS/cnv/cnv-beta/misc/test_dir" --htmlfile="test.html"
-
-m <- dbDriver("MySQL");
-con <-dbConnect(m,username="onson001",password="masara15",dbname="fairview_2013_09_25",host="localhost");
-
-source("/Users/onson001/Desktop/NGS/cnv/cnv-beta/src/CopyNumDeletion.R");
-twice_seg_len <- 1000;
-input_table <- paste("cnv_11_05910_tso_over_07_2151_n_bowtie_bwa_ratio_gene_out",sep="");
-cnv_table <- paste("11_05910_tso_cnv",sep="");
-cnv_lm_fit(con, input_table, cnv_table, twice_seg_len);
-
-
