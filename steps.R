@@ -27,8 +27,7 @@ sudo ln -s /usr/local/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.
 wget http://cran.r-project.org/src/contrib/zoo_1.7-12.tar.gz
 R CMD INSTALL zoo_1.7-12.tar.gz
 
-cd /Users/onson001/Desktop/NGS/cnv/cnv-beta
-
+cd /Users/onson001/Desktop/temp
 
 db_h="localhost"
 db_u="onson001"
@@ -47,8 +46,6 @@ platform="TruSightOne";
 
 ordered_genes="/Users/onson001/Desktop/NGS/cnv/cnv-beta/galaxy-wrapper/ordered_genes.txt"
 
-cd /Users/onson001/Desktop/temp
-
 script_path=/Users/onson001/Desktop/NGS/cnv/code/cnv-galaxy/myTools
 
 Rscript $script_path/runCND.R  --c_name $c_sample_name --c_pileup $c_pileup --c_bwa $c_bwa --c_bowtie $c_bowtie \
@@ -56,18 +53,10 @@ Rscript $script_path/runCND.R  --c_name $c_sample_name --c_pileup $c_pileup --c_
 --ordered_genes $ordered_genes --db_h $db_h --db_u $db_u --db_p $db_p --db_d $db_d
 
 
-
 -- ABOVE ARE MANUAL STEPS FOR IMPLEMNTING PACKAGES AND TESTING CODE. NEXT STEPS
 1) CREATE DEPENDENCIES.XML
 2) ADD script XML
 3) ADD TO TOOLSHED
-
-
-
-
-
-
-
 
 
 
