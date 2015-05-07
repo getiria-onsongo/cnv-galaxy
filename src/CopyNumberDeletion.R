@@ -605,7 +605,8 @@ mysql_within_sample <- function (con, sample_name){
     index <- dbGetQuery(con, index_str);
 }
 
-mysql_create_reference <- function (con, sample_name){
+
+mysql_create_reference_test <- function (con, sample_name){
     del_str <- paste("DROP TABLE IF EXISTS ",sample_name,"_3_random_ref;",sep="");
     create_str <- paste(" CREATE TABLE ",sample_name,"_3_random_ref AS SELECT DISTINCT A1.* FROM tso_reference A1 WHERE exon_contig_id = 'chr13:23904274-23915829' OR exon_contig_id = 'chr13:32910401-32915333' OR exon_contig_id = 'chr6:152655142-152655408';",sep="");
     index1_str <- paste("CREATE INDEX ",sample_name,"_3_random_ref_i1 ON ",sample_name,"_3_random_ref(chr,pos);",sep="");
