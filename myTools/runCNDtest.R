@@ -47,7 +47,7 @@ mysql_load_pileup(con,opt$s_name,opt$s_bowtie,"bowtie");
 mysql_exon_bwa_bowtie(con,opt$s_name);
 
 # RANDOMLY RETRIEVE 3 REFERENCES
-mysql_create_reference(con,opt$s_name);
+mysql_create_reference_test(con,opt$s_name);
 
 # ---------------------------------------- FIND REFERENCE COVERAGE (MEDIAN COVERAGE FOR REFERENCE EXON) FOR 11_05910_tso
 s_cmec_input <- paste("cnv_",opt$s_name,"_exon_pileup",sep="");

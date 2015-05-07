@@ -3,7 +3,7 @@
   <description>Identify copy number deletions </description>
  
   <command interpreter="Rscript">
-      CopyNumberDeletion.R  --s_name $sample_name --c_name $c_sample_name --s_pileup $s_pileup --s_bwa $s_bwa --s_bowtie $s_bowtie --c_pileup $c_pileup --c_bwa $c_bwa --c_bowtie $c_bowtie --platform $platform --ordered_genes $ordered_genes --db_h localhost --db_u onson001 --db_p masara15 --db_d fairview_2013_09_25
+      runCND.R  --s_name $sample_name --c_name $c_sample_name --s_pileup $s_pileup --s_bwa $s_bwa --s_bowtie $s_bowtie --c_pileup $c_pileup --c_bwa $c_bwa --c_bowtie $c_bowtie --platform $platform --ordered_genes $ordered_genes --db_h localhost --db_u onson001 --db_p masara15 --db_d fairview_2013_09_25
   </command>
  
   <inputs>
