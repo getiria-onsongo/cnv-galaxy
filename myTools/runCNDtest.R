@@ -9,7 +9,7 @@ suppressPackageStartupMessages(library("plotrix"));
 suppressPackageStartupMessages(library("zoo"));
 suppressPackageStartupMessages(library("DBI"));
 suppressPackageStartupMessages(library("RMySQL"));
-source("/Users/onson001/Desktop/NGS/cnv/code/cnv-galaxy/src/CopyNumberDeletion.R");
+source("CopyNumberDeletion.R");
 
 option_list <- list(
 make_option("--c_name", help="Control sample name"),
