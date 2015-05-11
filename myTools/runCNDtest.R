@@ -158,5 +158,5 @@ plot_cnv_and_ordered_genes(con, opt$s_name,opt$c_name,width,single_plot_height);
 # ----------------------------------------------------- DELETE MySQL TABLES----------------------------- (UNCOMMENT LINE BELOW BEFORE PRODUCTION)
 mysql_delete_tables(con,opt$s_name,opt$c_name);
 
-
-
+# Disconnect from MySQL
+dbDisconnect(con);
