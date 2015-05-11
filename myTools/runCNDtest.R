@@ -25,7 +25,8 @@ make_option("--ordered_genes", help="One column text file with list of ordered g
 make_option("--db_u", help="MySQL database username"),
 make_option("--db_p", help="MySQL database password"),
 make_option("--db_d", help="MySQL database to use"),
-make_option("--db_h", help="MySQL host to use")
+make_option("--db_h", help="MySQL host to use"),
+make_option("--db_s", help="MySQL unix socket to use")
 )
 
 # get command line options, if help option encountered print help and exit,
@@ -33,8 +34,7 @@ make_option("--db_h", help="MySQL host to use")
 opt <- parse_args(OptionParser(option_list=option_list))
 
 m <- dbDriver("MySQL");
-con <-dbConnect(m,username=opt$db_u,password=opt$db_p,dbname=opt$db_d,host=opt$db_h);
-
+con <-dbConnect(m,username=opt$db_u,password=opt$db_p,dbname=opt$db_d,host=opt$db_h,unix.socket=opt$db_s);
 
 # LOAD CONTROL PILEUPS
 mysql_load_pileup(con,opt$c_name,opt$c_pileup,"pileup");
