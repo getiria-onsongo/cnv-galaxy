@@ -26,7 +26,8 @@ make_option("--db_u", help="MySQL database username"),
 make_option("--db_p", help="MySQL database password"),
 make_option("--db_d", help="MySQL database to use"),
 make_option("--db_h", help="MySQL host to use"),
-make_option("--db_s", help="MySQL unix socket to use")
+make_option("--db_s", help="MySQL unix socket to use"),
+make_option("--p", help="Use password to connect to MySQL")
 )
 
 # get command line options, if help option encountered print help and exit,
@@ -34,7 +35,12 @@ make_option("--db_s", help="MySQL unix socket to use")
 opt <- parse_args(OptionParser(option_list=option_list))
 
 m <- dbDriver("MySQL");
-con <-dbConnect(m,username=opt$db_u,password=opt$db_p,dbname=opt$db_d,host=opt$db_h,unix.socket=opt$db_s);
+
+if(opt$p == 1){
+  con <-dbConnect(m,username=opt$db_u,password=opt$db_p,dbname=opt$db_d,host=opt$db_h,unix.socket=opt$db_s);
+}else{
+  con <-dbConnect(m,username=opt$db_u,dbname=opt$db_d,host=opt$db_h,unix.socket=opt$db_s);	
+}
 
 # LOAD CONTROL PILEUPS
 mysql_load_pileup(con,opt$c_name,opt$c_pileup,"pileup");
