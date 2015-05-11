@@ -1,5 +1,7 @@
 #!/usr/bin/env Rscript
 
+options(warn=-1);
+
 suppressPackageStartupMessages(library("MASS"));
 suppressPackageStartupMessages(library("calibrate"));
 suppressPackageStartupMessages(library("optparse"));
